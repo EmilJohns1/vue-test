@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import Calculator from "./components/Calculator.vue";
+import Calculator from './components/Calculator.vue'
 
 export default {
   components: {
-    Calculator,
-  },
-};
+    Calculator
+  }
+}
 </script>
