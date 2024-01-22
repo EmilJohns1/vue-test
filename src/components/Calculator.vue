@@ -113,24 +113,23 @@ export default {
         this.handleButtonClick('DEL')
       }
 
+      if (key === 'C') {
+        this.handleButtonClick('C')
+      }
+
+      if (key === '=' || event.keyCode === 13) {
+        this.handleButtonClick('=')
+      }
+
       // Allow only specific keys
       if (/[\d*\/\b\s=.,+\-]/.test(key) || event.keyCode === 13) {
         event.preventDefault() // Prevent the default behavior of the key event
-
-        if (key === '=' || event.keyCode === 13) {
-          this.handleButtonClick('=')
-        } else if (key === 'Backspace' || event.keyCode === 8) {
-          this.handleButtonClick('DEL')
-        } else if (key === 'C') {
-          this.handleButtonClick('C')
+        if (this.expression.length < 17) {
+          if (key === ',') {
+            this.handleButtonClick('.')
+          } else this.handleButtonClick(key)
         } else {
-          if (this.expression.length < 17) {
-            if (key === ',') {
-              this.handleButtonClick('.')
-            } else this.handleButtonClick(key)
-          } else {
-            return
-          }
+          return
         }
       }
     }
