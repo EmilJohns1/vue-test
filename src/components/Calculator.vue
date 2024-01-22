@@ -121,16 +121,17 @@ export default {
         this.handleButtonClick('=')
       }
 
+      if (this.expression.length > 17) {
+        return
+      }
       // Allow only specific keys
-      if (/[\d*\/\b\s=.,+\-]/.test(key) || event.keyCode === 13) {
+      if (/[\d*\/\b\s=.,+\-]/.test(key)) {
         event.preventDefault() // Prevent the default behavior of the key event
-        if (this.expression.length < 17) {
-          if (key === ',') {
-            this.handleButtonClick('.')
-          } else this.handleButtonClick(key)
-        } else {
-          return
-        }
+        if (key === ',') {
+          this.handleButtonClick('.')
+        } else this.handleButtonClick(key)
+      } else {
+        return
       }
     }
   },
