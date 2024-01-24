@@ -61,17 +61,39 @@ export default {
       return name.value.trim() !== '' && isValidEmail(email.value) && message.value.trim() !== '';
     });
 
-    const submitForm = () => {
+    const submitForm = async () => {
       if (isFormValid.value) {
-        console.log('Form submitted:', name.value, email.value, message.value);
-        store.setName(name.value);
-        store.setEmail(email.value);
+        try {
+          const response = await fetch('http://localhost:3001/responses', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: name.value,
+              email: email.value,
+              message: message.value,
+            }),
+          });
+
+          const responseData = await response.json();
+
+          store.setName(responseData.name);
+          store.setEmail(responseData.email);
+
+          alert('Form submitted successfully!');
+
+          resetMessage();
+        } catch (error) {
+          console.error('Error submitting form:', error.message);
+        }
       } else {
         console.log('Form is not valid. Please check your inputs.');
-        console.log('Name:', name.value);
-        console.log('Email:', email.value);
-        console.log('Message:', message.value);
       }
+    };
+
+    const resetMessage = () => {
+      message.value = '';
     };
 
     const resetForm = () => {

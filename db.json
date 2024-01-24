@@ -1,0 +1,13 @@
+{
+  "responses": [
+    {
+      "status": "success"
+    },
+    {
+      "id": "edcc",
+      "name": "admin",
+      "email": "test@gmail.com",
+      "message": "htfgh"
+    }
+  ]
+}
