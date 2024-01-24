@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     pushAnswer() {
-      if (this.answers.length < 5) {
+      if (this.answers.length < 10) {
         this.answers.push(this.expression)
         this.expression = ''
       } else {
@@ -178,6 +178,8 @@ export default {
   background: linear-gradient(to bottom right, #87ceeb, #ff69b4);
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   font-size: 1.2rem;
+  max-height: 365.96px;
+  overflow-y: scroll;
 }
 
 .calculator-container {
