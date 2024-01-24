@@ -33,6 +33,9 @@
         <div class="answer-line"></div>
       </div>
     </div>
+    <router-link to="/kontaktskjema">
+      <button id="feedback-button">Give us feedback!</button>
+    </router-link>
   </div>
 </template>
 
@@ -200,5 +203,21 @@ export default {
   height: 1px;
   background-color: #000;
   margin: 5px 0;
+}
+
+#feedback-button {
+  width: 240px;
+  margin: 20px auto;
+  padding: 10px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  background-color: #4caf50;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+#feedback-button:hover {
+  background-color: #3e8e41;
 }
 </style>
