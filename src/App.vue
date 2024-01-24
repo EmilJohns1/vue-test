@@ -1,4 +1,3 @@
-<!-- App.vue -->
 <template>
   <div id="app">
     <router-view />
@@ -12,5 +11,7 @@ export default {
 </script>
 
 <style scoped>
-
+#app {
+  margin-right: 200px;
+}
 </style>

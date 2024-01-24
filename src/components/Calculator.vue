@@ -33,7 +33,7 @@
         <div class="answer-line"></div>
       </div>
     </div>
-    <router-link to="/kontaktskjema">
+    <router-link id="router-link" to="/contactform">
       <button id="feedback-button">Give us feedback!</button>
     </router-link>
   </div>
@@ -147,6 +147,13 @@ export default {
 </script>
 
 <style scoped>
+#router-link {
+  display: flex;
+  justify-content: center;
+  max-width: fit-content;
+  max-height: 100px;
+}
+
 #calculator {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

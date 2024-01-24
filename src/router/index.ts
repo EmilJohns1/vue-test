@@ -1,6 +1,7 @@
+// router.ts
 import { createRouter, createWebHistory } from 'vue-router'
 import Calculator from '../components/Calculator.vue'
-import Kontakt_skjema from '../components/Kontakt_skjema.vue'
+import Contact_form from '../components/Contact_form.vue'
 
 const routes = [
   {
@@ -8,8 +9,8 @@ const routes = [
     component: Calculator
   },
   {
-    path: '/kontaktskjema',
-    component: Kontakt_skjema
+    path: '/contactform',
+    component: Contact_form
   }
 ]
 
