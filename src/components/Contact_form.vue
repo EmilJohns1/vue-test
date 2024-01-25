@@ -81,6 +81,9 @@ export default {
           store.setName(responseData.name);
           store.setEmail(responseData.email);
 
+          console.log('Form submitted successfully!')
+          console.log('Response data:', responseData)
+
           alert('Form submitted successfully!');
 
           resetMessage();

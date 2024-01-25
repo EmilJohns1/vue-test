@@ -39,7 +39,7 @@
   </div>
 </template>
 
-<script>
+<script> 
 import * as math from 'mathjs'
 
 export default {
