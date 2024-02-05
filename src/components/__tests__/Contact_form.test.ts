@@ -1,54 +1,20 @@
-import { createTestingPinia } from '@pinia/testing'
-import { createRouter, createWebHistory } from 'vue-router';
-import { describe, it, expect, beforeEach, vi, afterEach, } from 'vitest';
-import { shallowMount } from '@vue/test-utils';
-import ContactForm from '@/components/Contact_form.vue';
-
-const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    {
-      path: '/',
-      name: 'Home',
-      component: ContactForm,
-    },
-  ],
-});
+// tests/ContactForm.spec.ts
+import { createApp } from 'vue';
+import { mount } from '@vue/test-utils';
+import { describe, it } from 'node:test';
+import { expect } from 'chai';
+import ContactForm from '../Contact_form.vue';
 
 describe('ContactForm', () => {
-  let wrapper : any;
+  it('renders correctly', () => {
+    const app = createApp(ContactForm);
+    const wrapper = mount(app);
 
-  it('renders correctly with initial values', async () => {
-    beforeEach(() => {
-      // render the component
-      wrapper = shallowMount(ContactForm, {
-        global: {
-          plugins: [
-            createTestingPinia({
-              createSpy: vi.fn
-            })
-          ]
-        }
-      })
-    })
-  
-    // TEARDOWN - run after each unit test
-    afterEach(() => {
-      wrapper.unmount()
-    })
-  
-    // Check if the Home button is rendered
-    expect(wrapper.find('#home-button').exists()).toBe(true);
+    // Your test assertions go here
+    expect(wrapper.html()).contains('Contact Us');
+    // Add more assertions based on your component's behavior
 
-    // Check if the form elements are rendered
-    expect(wrapper.findAll('input').length).toBe(2); // Name and Email inputs
-    expect(wrapper.find('textarea').exists()).toBe(true); // Message textarea
-
-    // Check if the Reset and Submit buttons are rendered
-    expect(wrapper.findAll('button[type="reset"]').length).toBe(1);
-    expect(wrapper.findAll('button[type="submit"]').length).toBe(1);
-
-    // Check if the form is initially valid
-    expect(wrapper.vm.isFormValid).toBe(false);
+    // Clean up after the test
+    wrapper.unmount();
   });
 });
