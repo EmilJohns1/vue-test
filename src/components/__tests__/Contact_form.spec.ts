@@ -64,4 +64,14 @@ describe('ContactForm', () => {
 
     wrapper.unmount();
   });
+
+  it('navigates to home page when home button is clicked', async () => {
+    const wrapper = mount(ContactForm);
+
+    await wrapper.find('#home-button').trigger('click');
+
+    expect(wrapper.emitted('click')).toBeTruthy();
+
+    wrapper.unmount();
+  });
 });
