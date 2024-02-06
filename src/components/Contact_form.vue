@@ -9,12 +9,12 @@
       <form @submit.prevent="submitForm">
         <div class="form-group">
           <label for="name">Name:</label>
-          <input type="text" id="name" name="name" v-model="name" required>
+          <input type="text" id="name" name="name" v-model="name" required />
         </div>
 
         <div class="form-group">
           <label for="email">Email:</label>
-          <input type="email" id="email" name="email" v-model="email" required>
+          <input type="email" id="email" name="email" v-model="email" required />
         </div>
 
         <div class="form-group">
@@ -24,7 +24,13 @@
 
         <div class="button-group">
           <button type="reset" @click="resetForm">Reset</button>
-          <button type="submit" :disabled="!isFormValid" :class="{ 'disabled-button': !isFormValid }">Submit</button>
+          <button
+            type="submit"
+            :disabled="!isFormValid"
+            :class="{ 'disabled-button': !isFormValid }"
+          >
+            Submit
+          </button>
         </div>
       </form>
     </div>
@@ -32,34 +38,34 @@
 </template>
 
 <script>
-import { ref } from 'vue';
-import { useContactStore } from '../stores/contact.ts';
-import { computed } from 'vue';
+import { ref } from 'vue'
+import { useContactStore } from '../stores/contact.ts'
+import { computed } from 'vue'
 
 export default {
   setup() {
-    const store = useContactStore();
+    const store = useContactStore()
 
     const isValidEmail = (email) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(email);
-    };
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      return emailRegex.test(email)
+    }
 
-    const name = ref('');
-    const email = ref('');
-    const message = ref('');
+    const name = ref('')
+    const email = ref('')
+    const message = ref('')
 
     if (store.name) {
-      name.value = store.name;
+      name.value = store.name
     }
 
     if (store.email) {
-      email.value = store.email;
+      email.value = store.email
     }
 
     const isFormValid = computed(() => {
-      return name.value.trim() !== '' && isValidEmail(email.value) && message.value.trim() !== '';
-    });
+      return name.value.trim() !== '' && isValidEmail(email.value) && message.value.trim() !== ''
+    })
 
     const submitForm = async () => {
       if (isFormValid.value) {
@@ -67,45 +73,45 @@ export default {
           const response = await fetch('http://localhost:3001/responses', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
+              'Content-Type': 'application/json'
             },
             body: JSON.stringify({
               name: name.value,
               email: email.value,
-              message: message.value,
-            }),
-          });
+              message: message.value
+            })
+          })
 
-          const responseData = await response.json();
+          const responseData = await response.json()
 
-          store.setName(responseData.name);
-          store.setEmail(responseData.email);
+          store.setName(responseData.name)
+          store.setEmail(responseData.email)
 
           console.log('Form submitted successfully!')
           console.log('Response data:', responseData)
 
-          alert('Form submitted successfully!');
+          alert('Form submitted successfully!')
 
-          resetMessage();
+          resetMessage()
         } catch (error) {
-          console.error('Error submitting form:', error.message);
+          console.error('Error submitting form:', error.message)
         }
       } else {
-        console.log('Form is not valid. Please check your inputs.');
+        console.log('Form is not valid. Please check your inputs.')
       }
-    };
+    }
 
     const resetMessage = () => {
-      message.value = '';
-    };
+      message.value = ''
+    }
 
     const resetForm = () => {
-      store.setName('');
-      store.setEmail('');
-      name.value = '';
-      email.value = '';
-      message.value = '';
-    };
+      store.setName('')
+      store.setEmail('')
+      name.value = ''
+      email.value = ''
+      message.value = ''
+    }
 
     return {
       store,
@@ -114,14 +120,13 @@ export default {
       message,
       isFormValid,
       submitForm,
-      resetForm,
-    };
-  },
-};
+      resetForm
+    }
+  }
+}
 </script>
 
 <style scoped>
-
 #router-link {
   display: flex;
   justify-content: center;
@@ -194,5 +199,4 @@ button {
   background-color: #ccc;
   cursor: not-allowed;
 }
-
 </style>

@@ -1,77 +1,76 @@
-import { createApp } from 'vue';
-import { mount } from '@vue/test-utils';
-import ContactForm from '@/components/Contact_form.vue';
-import { createPinia } from 'pinia';
-import { describe, it, expect, vi } from 'vitest';
+import { createApp } from 'vue'
+import { mount } from '@vue/test-utils'
+import ContactForm from '@/components/Contact_form.vue'
+import { createPinia } from 'pinia'
+import { describe, it, expect, vi } from 'vitest'
 
-const pinia = createPinia();
+const pinia = createPinia()
 
-const app = createApp(pinia);
-app.use(pinia);
+const app = createApp(pinia)
+app.use(pinia)
 
 describe('ContactForm', () => {
   it('renders correctly', async () => {
     const wrapper = mount(ContactForm, {
       global: {
-        plugins: [pinia],
-      },
-    });
+        plugins: [pinia]
+      }
+    })
 
-    await wrapper.vm.$nextTick();
+    await wrapper.vm.$nextTick()
 
-    expect(wrapper.html()).toContain('Contact Us');
+    expect(wrapper.html()).toContain('Contact Us')
 
-    wrapper.unmount();
-  });
+    wrapper.unmount()
+  })
 
   it('submits form when valid', async () => {
     const wrapper = mount(ContactForm, {
       global: {
-        plugins: [pinia],
+        plugins: [pinia]
       },
       props: {
         name: 'John Doe',
         email: 'john@example.com',
-        message: 'Hello',
-      },
-    });
+        message: 'Hello'
+      }
+    })
 
-    const submitFormSpy = vi.spyOn(wrapper.vm, 'submitForm');
+    const submitFormSpy = vi.spyOn(wrapper.vm, 'submitForm')
 
-    await wrapper.find('form').trigger('submit.prevent');
+    await wrapper.find('form').trigger('submit.prevent')
 
-    expect(submitFormSpy).toHaveBeenCalled();
+    expect(submitFormSpy).toHaveBeenCalled()
 
-    wrapper.unmount();
-
-  });
+    wrapper.unmount()
+  })
 
   it('does not submit form when invalid', async () => {
     const wrapper = mount(ContactForm, {
       global: {
-        plugins: [pinia],
+        plugins: [pinia]
       },
       props: {
         name: '',
         email: '',
-        message: '',
-      },
-    });
+        message: ''
+      }
+    })
 
-    await wrapper.find('form').trigger('submit.prevent');
+    await wrapper.find('form').trigger('submit.prevent')
 
-    expect(wrapper.emitted().submitForm).toBeFalsy();
+    expect(wrapper.emitted().submitForm).toBeFalsy()
 
-    wrapper.unmount();
-  });
+    wrapper.unmount()
+  })
 
   it('navigates to home page when home button is clicked', async () => {
-    const wrapper = mount(ContactForm);
+    const wrapper = mount(ContactForm)
 
-    await wrapper.find('#home-button').trigger('click');
+    await wrapper.find('#home-button').trigger('click')
 
-    expect(wrapper.emitted('click')).toBeTruthy();
+    expect(wrapper.emitted('click')).toBeTruthy()
 
-    wrapper.unmount();
-  });
-});
+    wrapper.unmount()
+  })
+})
