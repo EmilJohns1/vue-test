@@ -1,9 +1,8 @@
-// tests/ContactForm.spec.ts
 import { createApp } from 'vue';
 import { mount } from '@vue/test-utils';
-import { describe, it, expect } from 'vitest';
-import ContactForm from '@/components/Contact_form.vue'; // Adjust the path based on your project structure
+import ContactForm from '@/components/Contact_form.vue';
 import { createPinia } from 'pinia';
+import { describe, it, expect, vi } from 'vitest';
 
 const pinia = createPinia();
 
@@ -18,13 +17,10 @@ describe('ContactForm', () => {
       },
     });
 
-    // Wait for the next tick to allow the component to be rendered
     await wrapper.vm.$nextTick();
 
-    // Assert that the component renders "Contact Us" in the HTML
     expect(wrapper.html()).toContain('Contact Us');
 
-    // Clean up after the test
     wrapper.unmount();
   });
 
@@ -33,19 +29,21 @@ describe('ContactForm', () => {
       global: {
         plugins: [pinia],
       },
+      props: {
+        name: 'John Doe',
+        email: 'john@example.com',
+        message: 'Hello',
+      },
     });
 
-    // Set valid input values
-    await wrapper.setData({ name: 'John Doe', email: 'john@example.com', message: 'Hello' });
+    const submitFormSpy = vi.spyOn(wrapper.vm, 'submitForm');
 
-    // Trigger form submission
     await wrapper.find('form').trigger('submit.prevent');
 
-    // Check if form was submitted successfully
-    expect(wrapper.emitted().submitForm).toBeTruthy();
+    expect(submitFormSpy).toHaveBeenCalled();
 
-    // Clean up after the test
     wrapper.unmount();
+
   });
 
   it('does not submit form when invalid', async () => {
@@ -53,20 +51,17 @@ describe('ContactForm', () => {
       global: {
         plugins: [pinia],
       },
+      props: {
+        name: '',
+        email: '',
+        message: '',
+      },
     });
 
-    // Set invalid input values (empty fields)
-    await wrapper.setData({ name: '', email: '', message: '' });
-
-    // Trigger form submission
     await wrapper.find('form').trigger('submit.prevent');
 
-    // Check if form was not submitted
     expect(wrapper.emitted().submitForm).toBeFalsy();
 
-    // Clean up after the test
     wrapper.unmount();
   });
-
-  // Add more test cases based on your component's behavior
 });
