@@ -1,0 +1,3 @@
+[submodule "vue-test"]
+	path = vue-test
+	url = https://github.com/1Cezzo/vue-test.git
